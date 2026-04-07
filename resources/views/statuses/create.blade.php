@@ -7,7 +7,7 @@
 </head>
 <body>
 <h3>Add a status</h3>
-<form method="post" action="{{ route('status.store') }}">
+<form method="post" action="{{ route('statuses.store') }}">
     @csrf
     Name: <input type="text" name="name"><br>
     <button>Add</button>

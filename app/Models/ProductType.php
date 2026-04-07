@@ -22,7 +22,7 @@ class ProductType extends Model
     {
         //Lưu dữ liệu vào database
         DB::table('product_types')->insert([
-            'name' => $this->name
+            'product_type_name' => $this->name
         ]);
     }
     //Function cập nhật dữ liệu
@@ -32,7 +32,7 @@ class ProductType extends Model
         DB::table('product_types')
             ->where('id',$this-> id)
             ->update([
-            'name' => $this->name
+            'product_type_name' => $this->name
         ]);
     }
     //Function xóa dữ liệu

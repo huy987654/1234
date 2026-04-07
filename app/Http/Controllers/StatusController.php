@@ -80,6 +80,7 @@ class StatusController extends Controller
         $status->name = $request->name;
         //Gọi function lưu dữ liệu trong model
         $status->updateStatus();
+
         //Quay về danh sách
         return Redirect::route('statuses.index');
     }

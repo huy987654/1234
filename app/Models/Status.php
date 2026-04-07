@@ -17,7 +17,7 @@ class Status extends Model
     //Function lưu dữ liệu vào database
     public function createStatus(){
         DB::table('statuses')->insert([
-            'name' => $this->name
+            'status_name' => $this->name
         ]);
     }
     //Function cập nhật dữ liệu vào database
@@ -25,7 +25,7 @@ class Status extends Model
         DB::table('statuses')
             ->where('id', $id)
             ->update([
-            'name' => $this->name
+            'status_name' => $this->name
         ]);
     }
      //Function xóa dữ liệu vào database

@@ -6,8 +6,8 @@
     <title>Document</title>
 </head>
 <body>
-<h3>Product Type List</h3>
-<a href="{{ route('productTypes.create') }}">Add a product type</a>
+<h3>Payment List</h3>
+<a href="{{ route('payments.create') }}">Add a payment</a>
 <table border="1px" cellpadding="0" cellspacing="0" width="100%">
     <tr>
         <th>ID</th>
@@ -15,19 +15,19 @@
         <th></th>
         <th></th>
     </tr>
-    @foreach($productTypes as $productType)
+    @foreach($payments as $payment)
         <tr>
             <td>
-                {{ $productType->id }}
+                {{ $payment->id }}
             </td>
             <td>
-                {{ $productType->product_type_name }}
+                {{ $payment->method }}
             </td>
             <td>
-                <a href="{{ route('productTypes.edit', $productType->id) }}">Edit</a>
+                <a href="{{ route('payments.edit', $payment->id) }}">Edit</a>
             </td>
             <td>
-                <form method="post" action="{{ route('productTypes.destroy', $productType->id) }}">
+                <form method="post" action="{{ route('payments.destroy', $payment->id) }}">
                     @csrf
                     @method('DELETE')
                     <button>Delete</button>

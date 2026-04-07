@@ -6,8 +6,8 @@
     <title>Document</title>
 </head>
 <body>
-<h3>Product Type List</h3>
-<a href="{{ route('productTypes.create') }}">Add a product type</a>
+<h3>Status List</h3>
+<a href="{{ route('statuses.create') }}">Add a status</a>
 <table border="1px" cellpadding="0" cellspacing="0" width="100%">
     <tr>
         <th>ID</th>
@@ -15,19 +15,19 @@
         <th></th>
         <th></th>
     </tr>
-    @foreach($productTypes as $productType)
+    @foreach($statuses as $status)
         <tr>
             <td>
-                {{ $productType->id }}
+                {{ $status->id }}
             </td>
             <td>
-                {{ $productType->product_type_name }}
+                {{ $status->status_name }}
             </td>
             <td>
-                <a href="{{ route('productTypes.edit', $productType->id) }}">Edit</a>
+                <a href="{{ route('statuses.edit', $status->id) }}">Edit</a>
             </td>
             <td>
-                <form method="post" action="{{ route('productTypes.destroy', $productType->id) }}">
+                <form method="post" action="{{ route('statuses.destroy', $status->id) }}">
                     @csrf
                     @method('DELETE')
                     <button>Delete</button>

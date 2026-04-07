@@ -59,6 +59,52 @@ Route::middleware('authStaff')->prefix('/staffs')
                 Route::delete('/{productType}', 'destroy')
                     ->name('destroy');
             });
+        Route::controller(\App\Http\Controllers\PaymentController::class)
+            ->name('payments.')
+            ->prefix('/payments')
+            ->group(function(){
+                //Route hiển thị danh sách
+                Route::get('/', 'index')
+                    ->name('index');
+                //Route hiển thị form thêm
+                Route::get('/create', 'create')
+                    ->name('create');
+                //Route thêm dữ liệu
+                Route::post('/create', 'store')
+                    ->name('store');
+                //Route hiển thị form sửa
+                Route::get('/{payment}/edit', 'edit')
+                    ->name('edit');
+                //Route update dữ liệu
+                Route::put('/{payment}/edit', 'update')
+                    ->name('update');
+                //Route delete dữ liệu
+                Route::delete('/{payment}', 'destroy')
+                    ->name('destroy');
+            });
+        Route::controller(\App\Http\Controllers\StatusController::class)
+            ->name('statuses.')
+            ->prefix('/statuses')
+            ->group(function(){
+                //Route hiển thị danh sách
+                Route::get('/', 'index')
+                    ->name('index');
+                //Route hiển thị form thêm
+                Route::get('/create', 'create')
+                    ->name('create');
+                //Route thêm dữ liệu
+                Route::post('/create', 'store')
+                    ->name('store');
+                //Route hiển thị form sửa
+                Route::get('/{status}/edit', 'edit')
+                    ->name('edit');
+                //Route update dữ liệu
+                Route::put('/{status}/edit', 'update')
+                    ->name('update');
+                //Route delete dữ liệu
+                Route::delete('/{status}', 'destroy')
+                    ->name('destroy');
+            });
     });
 
 

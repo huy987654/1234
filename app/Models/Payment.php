@@ -22,7 +22,7 @@ class Payment extends Model
     {
         //Lưu dữ liệu vào database
         DB::table('payments')->insert([
-            'name' => $this->name
+            'method' => $this->name
         ]);
     }
     //Function cập nhật dữ liệu
@@ -32,7 +32,7 @@ class Payment extends Model
         DB::table('payments')
             ->where('id',$this-> id)
             ->update([
-            'name' => $this->name
+            'method' => $this->name
         ]);
     }
     //Function xóa dữ liệu
