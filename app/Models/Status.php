@@ -21,17 +21,19 @@ class Status extends Model
         ]);
     }
     //Function cập nhật dữ liệu vào database
-    public function updateStatus($id){
+    public function updateStatus()
+    {
+        //Cập nhật dữ liệu vào database
         DB::table('statuses')
-            ->where('id', $id)
+            ->where('id',$this-> id)
             ->update([
-            'status_name' => $this->name
-        ]);
+                'status_name' => $this->name
+            ]);
     }
      //Function xóa dữ liệu vào database
-     public function deleteStatus($id){
+     public function deleteStatus(){
         DB::table('statuses')
-            ->where('id', $id)
+            ->where('id', $this-> id)
             ->delete();
     }
 }

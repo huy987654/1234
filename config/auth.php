@@ -42,8 +42,8 @@ return [
         ],
         'staff' => [
             'driver' => 'session',
-            'provider' => 'staffs',
-        ],
+           'provider' => 'staffs',
+       ],
     ],
 
     /*
@@ -69,10 +69,10 @@ return [
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
 
-        'staffs' => [
+       'staffs' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\Staff::class),
-    ],
+   ],
     ],
 
     /*

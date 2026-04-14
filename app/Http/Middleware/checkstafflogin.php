@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckStaffLogin
+class checkstafflogin
 {
     /**
      * Handle an incoming request.

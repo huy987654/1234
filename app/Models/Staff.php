@@ -10,10 +10,10 @@ class Staff extends Model implements Authenticatable
 {
     /** @use HasFactory<\Database\Factories\StaffFactory> */
     use HasFactory;
-    use \Illuminate\Auth\Authenticatable;
-
-    protected $table = 'staffs';
-    protected $guarded = [];
+   use \Illuminate\Auth\Authenticatable;
+//
+   protected $table = 'staffs';
+   protected $guarded = [];
 //Function lấy dữ liệu
     public function index()
     {

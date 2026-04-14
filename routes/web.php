@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return bcrypt('123456');
+   return bcrypt('123456');
+  //  return view('welcome');
 });
 
 Route::get('/login', [\App\Http\Controllers\StaffController::class, 'login'])
@@ -11,31 +12,27 @@ Route::get('/login', [\App\Http\Controllers\StaffController::class, 'login'])
 Route::post('/login', [\App\Http\Controllers\StaffController::class, 'loginProcess'])
     ->name('staffs.loginProcess');
 
-Route::middleware('authStaff')->prefix('/staffs')
-    ->group(function(){
-        Route::controller(\App\Http\Controllers\BrandController::class)
-            ->name('brands.')
-            ->prefix('/brands')
-            ->group(function(){
-                //Route hiển thị danh sách
-                Route::get('/', 'index')
-                    ->name('index');
-                //Route hiển thị form thêm
-                Route::get('/create', 'create')
-                    ->name('create');
-                //Route thêm dữ liệu
-                Route::post('/create', 'store')
-                    ->name('store');
-                //Route hiển thị form sửa
-                Route::get('/{brand}/edit', 'edit')
-                    ->name('edit');
-                //Route update dữ liệu
-                Route::put('/{brand}/edit', 'update')
-                    ->name('update');
-                //Route delete dữ liệu
-                Route::delete('/{brand}', 'destroy')
-                    ->name('destroy');
-            });
+Route::middleware('authStaff')->prefix('/staffs');
+//
+//Route hiển thị danh sách
+Route::get('/brands', [\App\Http\Controllers\BrandController::class, 'index'])
+    ->name('brands.index');
+//Route hiển thị form thêm
+Route::get('/brands/create', [\App\Http\Controllers\BrandController::class, 'create'])
+    ->name('brands.create');
+//Route thêm dữ liệu
+Route::post('/brands/create', [\App\Http\Controllers\BrandController::class, 'store'])
+    ->name('brands.store');
+//Route hiển thị form sửa
+Route::get('/brands/{brand}/edit', [\App\Http\Controllers\BrandController::class, 'edit'])
+    ->name('brands.edit');
+//Route update dữ liệu
+Route::put('/brands/{brand}/edit', [\App\Http\Controllers\BrandController::class, 'update'])
+    ->name('brands.update');
+//Route delete dữ liệu
+Route::delete('/brands/{brand}', [\App\Http\Controllers\BrandController::class, 'destroy'])
+    ->name('brands.destroy');
+
         Route::controller(\App\Http\Controllers\ProductTypeController::class)
             ->name('productTypes.')
             ->prefix('/productTypes')
@@ -104,7 +101,8 @@ Route::middleware('authStaff')->prefix('/staffs')
                 //Route delete dữ liệu
                 Route::delete('/{status}', 'destroy')
                     ->name('destroy');
-            });
+
+
     });
 
 

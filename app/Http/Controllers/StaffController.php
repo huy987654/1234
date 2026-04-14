@@ -31,9 +31,9 @@ class StaffController extends Controller
         return view('staffs.index');
     }
     public function loginProcess(Request $request)
-    {
-        if(Auth::guard('staff')->attempt($request->only('email', 'password'))){
-            $request->session()->regenerate();
+   {
+       if(Auth::guard('staff')->attempt($request->only('email', 'password'))){
+           $request->session()->regenerate();
             return Redirect::route('brands.index');
         } else {
             return Redirect::back();
