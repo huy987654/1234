@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\CustomerController;
 Route::get('/', function () {
    return bcrypt('123456');
   //  return view('welcome');
@@ -103,6 +103,35 @@ Route::delete('/brands/{brand}', [\App\Http\Controllers\BrandController::class, 
                     ->name('destroy');
 
 
+                    });
+
+Route::controller(CustomerController::class)
+    ->name('customers.')
+    ->prefix('/customers')
+    ->group(function(){
+        // Route hiển thị danh sách
+        Route::get('/', 'index')
+            ->name('index');
+
+        // Route hiển thị form thêm
+        Route::get('/create', 'create')
+            ->name('create');
+
+        // Route thêm dữ liệu
+        Route::post('/create', 'store')
+            ->name('store');
+
+        // Route hiển thị form sửa
+        Route::get('/{customer}/edit', 'edit')
+            ->name('edit');
+
+        // Route update dữ liệu
+        Route::put('/{customer}/edit', 'update')
+            ->name('update');
+
+        // Route delete dữ liệu
+        Route::delete('/{customer}', 'destroy')
+            ->name('destroy');
     });
 
 

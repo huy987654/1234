@@ -6,11 +6,22 @@
     <title>Document</title>
 </head>
 <body>
-<h3>Add a customers</h3>
-<form method="post" action="{{ route('customers.store') }}">
+<h3>Thêm Customer</h3>
+<form action="{{ route('customers.store') }}" method="POST">
     @csrf
-    Name: <input type="text" name="name"><br>
-    <button>Add</button>
+    <label>Tên:</label>
+    <input type="text" name="name"><br><br>
+
+    <label>Email:</label>
+    <input type="email" name="email"><br><br>
+
+    <label>Phone:</label>
+    <input type="text" name="phone"><br><br>
+
+    <label>Password:</label>
+    <input type="text" name="password"><br><br>
+
+    <button type="submit">Save</button>
 </form>
 </body>
 </html>
