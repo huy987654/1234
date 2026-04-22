@@ -104,6 +104,31 @@ Route::delete('/brands/{brand}', [\App\Http\Controllers\BrandController::class, 
 
 
                     });
+Route::controller(\App\Http\Controllers\ProductController::class)
+    ->name('products.')
+    ->prefix('/products')
+    ->group(function(){
+        //Route hiển thị danh sách
+        Route::get('/', 'index')
+            ->name('index');
+        //Route hiển thị form thêm
+        Route::get('/create', 'create')
+            ->name('create');
+        //Route thêm dữ liệu
+        Route::post('/create', 'store')
+            ->name('store');
+        //Route hiển thị form sửa
+        Route::get('/{products}/edit', 'edit')
+            ->name('edit');
+        //Route update dữ liệu
+        Route::put('/{products}/edit', 'update')
+            ->name('update');
+        //Route delete dữ liệu
+        Route::delete('/{products}', 'destroy')
+            ->name('destroy');
+
+
+    });
 
 Route::controller(CustomerController::class)
     ->name('customers.')

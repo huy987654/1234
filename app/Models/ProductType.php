@@ -9,6 +9,12 @@ class ProductType extends Model
 {
     /** @use HasFactory<\Database\Factories\ProductTypeFactory> */
     use HasFactory;
+    public function getAllProductTypes(): \Illuminate\Support\Collection
+    {
+        $type = DB::table('product_types')
+            ->get();
+        return $type;
+    }
 //Fuction lấy dữ liệu
     public function index()
     {
