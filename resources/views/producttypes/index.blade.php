@@ -12,8 +12,7 @@
     <tr>
         <th>ID</th>
         <th>Name</th>
-        <th></th>
-        <th></th>
+
     </tr>
     @foreach($productTypes as $productType)
         <tr>

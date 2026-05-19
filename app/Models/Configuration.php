@@ -21,7 +21,16 @@ class Configuration extends Model
     {
         //Lưu dữ liệu vào database
         DB::table('configurations')->insert([
-            'name' => $this->name
+            'cpu' => $this->cpu,
+            'ram' => $this->ram,
+            'storage' => $this->storage,
+            'gpu' => $this->gpu,
+            'screen' => $this->screen,
+            'os' => $this->os,
+            'battery' => $this->battery,
+            'camera' => $this->camera,
+            'connect' => $this->connect,
+            'other_function' => $this->other_function
         ]);
     }
     //Function cập nhật dữ liệu
@@ -31,8 +40,18 @@ class Configuration extends Model
         DB::table('configurations')
             ->where('id',$this-> id)
             ->update([
-            'name' => $this->name
-        ]);
+                'cpu' => $this->cpu,
+                'ram' => $this->ram,
+                'storage' => $this->storage,
+                'gpu' => $this->gpu,
+                'screen' => $this->screen,
+                'os' => $this->os,
+                'battery' => $this->battery,
+                'camera' => $this->camera,
+                'connect' => $this->connect,
+                'other_function' => $this->other_function
+
+            ]);
     }
     //Function xóa dữ liệu
     public function deleteConfiguration()

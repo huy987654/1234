@@ -23,7 +23,7 @@
                 {{ $product->id }}
             </td>
             <td>
-                {{ $product->$product_name }}
+                {{ $product->product_name }}
             </td>
             <td>
                 {{ $product->price }}
@@ -32,7 +32,7 @@
                 {{ $product->stock_quantity }}
             </td>
             <td>
-                {{ $product->$product_type_name }}
+                {{ $product->product_type_name }}
             </td>
             <td>
                 {{ $product->brand_name }}

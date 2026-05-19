@@ -104,6 +104,31 @@ Route::delete('/brands/{brand}', [\App\Http\Controllers\BrandController::class, 
 
 
                     });
+Route::controller(\App\Http\Controllers\ConfigurationController::class)
+    ->name('configurations.')
+    ->prefix('/configurations')
+    ->group(function(){
+        //Route hiển thị danh sách
+        Route::get('/', 'index')
+            ->name('index');
+        //Route hiển thị form thêm
+        Route::get('/create', 'create')
+            ->name('create');
+        //Route thêm dữ liệu
+        Route::post('/create', 'store')
+            ->name('store');
+        //Route hiển thị form sửa
+        Route::get('/{configuration}/edit', 'edit')
+            ->name('edit');
+        //Route update dữ liệu
+        Route::put('/{configuration}/edit', 'update')
+            ->name('update');
+        //Route delete dữ liệu
+        Route::delete('/{configuration}', 'destroy')
+            ->name('destroy');
+
+
+    });
 Route::controller(\App\Http\Controllers\ProductController::class)
     ->name('products.')
     ->prefix('/products')
@@ -118,13 +143,13 @@ Route::controller(\App\Http\Controllers\ProductController::class)
         Route::post('/create', 'store')
             ->name('store');
         //Route hiển thị form sửa
-        Route::get('/{products}/edit', 'edit')
+        Route::get('/{product}/edit', 'edit')
             ->name('edit');
         //Route update dữ liệu
-        Route::put('/{products}/edit', 'update')
+        Route::put('/{product}/edit', 'update')
             ->name('update');
         //Route delete dữ liệu
-        Route::delete('/{products}', 'destroy')
+        Route::delete('/{product}', 'destroy')
             ->name('destroy');
 
 

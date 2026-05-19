@@ -40,7 +40,16 @@ return view('configurations.index', [
         //Tạo đối tượng model
         $obj = new Configuration();
         //Lấy dữ liệu từ form
-        $obj->name = $request->name;
+        $obj->cpu = $request->cpu;
+        $obj->ram = $request->ram;
+        $obj->storage    = $request->storage;
+        $obj->gpu    = $request->gpu;
+        $obj->screen = $request->screen;
+        $obj->os = $request->os;
+        $obj->battery = $request->battery;
+        $obj->camera = $request->camera;
+        $obj->connect = $request->connect;
+        $obj->other_function = $request->other_function;
 
         //Gọi function lưu dữ liệu trong model
         $obj->createConfiguration();
@@ -73,7 +82,16 @@ return view('configurations.index', [
     public function update(UpdateConfigurationRequest $request, Configuration $configuration)
     {
         //Lấy dữ liệu
-        $configuration->name = $request->name;
+        $configuration->cpu = $request->cpu;
+        $configuration->ram = $request->ram;
+        $configuration->storage = $request->storage;
+        $configuration->gpu = $request->gpu;
+        $configuration->screen = $request->screen;
+        $configuration->os = $request->os;
+        $configuration->battery = $request->battery;
+        $configuration->camera = $request->camera;
+        $configuration->connect = $request->connect;
+        $configuration->other_function = $request->other_function;
         //Gọi function để update dữ liệu trong model
         $configuration->updateConfiguration();
         //Quay về danh sách

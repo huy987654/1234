@@ -41,6 +41,9 @@ class CustomerController extends Controller
         $obj = new Customer();
         //Lấy dữ liệu từ form
         $obj->name = $request->name;
+        $obj->email    = $request->email;
+        $obj->phone    = $request->phone;
+        $obj->password = $request->password;
         //Gọi function lưu dữ liệu trong model
         $obj->createCustomer();
         //Quay về danh sách

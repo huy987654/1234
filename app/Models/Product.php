@@ -41,7 +41,7 @@ class Product extends Model
         DB::table('products')
             ->where('id', $this->id)
             ->update([
-                'product_name' => $this->name,
+                'product_name' => $this->product_name,
                 'price' => $this->price,
                 'stock_quantity' => $this->stock_quantity,
                 'brand_id' => $this->brand_id,

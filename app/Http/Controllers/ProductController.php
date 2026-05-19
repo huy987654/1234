@@ -57,7 +57,7 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->stock_quantity = $request->stock_quantity;
         $product->brand_id = $request->brand_id;
-        $product->product_type_id = $request->prodct_type_id;
+        $product->product_type_id = $request->product_type_id;
         //Gọi function lưu dữ liệu trong model
         $product->createProduct();
         //Quay về danh sách
@@ -99,7 +99,7 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, Product $product)
     {
         //Lấy dữ liệu trong form
-        $product->name = $request->name;
+        $product->product_name = $request->product_name;
         $product->price = $request->price;
         $product->stock_quantity = $request->stock_quantity;
         $product->brand_id = $request->brand_id;
