@@ -1,11 +1,8 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Document</title>
-</head>
-<body>
+@extends('layouts.admin')
+
+@section('title', 'Brands Management')
+
+@section('content')
 <h3>Brand List</h3>
 <a href="{{ route('brands.create') }}">Add a brand</a>
 <table border="1px" cellpadding="0" cellspacing="0" width="100%">
@@ -29,11 +26,10 @@
                 <form method="post" action="{{ route('brands.destroy', $brand->id) }}">
                     @csrf
                     @method('DELETE')
-                    <button>Delete</button>
+                    <button class="btn btn-sm btn-danger">Delete</button>
                 </form>
             </td>
         </tr>
     @endforeach
 </table>
-</body>
-</html>
+@endsection

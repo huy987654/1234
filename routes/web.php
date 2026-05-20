@@ -129,6 +129,12 @@ Route::controller(\App\Http\Controllers\ConfigurationController::class)
 
 
     });
+
+Route::prefix('admin')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
+});
+
 Route::controller(\App\Http\Controllers\ProductController::class)
     ->name('products.')
     ->prefix('/products')
