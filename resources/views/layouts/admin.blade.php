@@ -1,24 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>@yield('title', 'Admin Dashboard')</title>
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 </head>
 <body>
-<!-- Header -->
-<header>
-    <h1>Admin Panel</h1>
-    <nav>
-        <a href="{{ route('admin.dashboard') }}">Dashboard</a>
-        <a href="{{ route('admin.users') }}">Users</a>
-    </nav>
-</header>
+<div class="wrapper">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <h2>Admin Panel</h2>
+        <ul>
+            <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+            <li><a href="{{ route('brands.index') }}">Brands</a></li>
+            <li><a href="{{ route('products.index') }}">Products</a></li>
+            <li><a href="{{ route('admin.users') }}">Users</a></li>
+        </ul>
+    </aside>
 
-<!-- Nội dung động -->
-<main>
-    @yield('content')
-</main>
+    <!-- Nội dung chính -->
+    <main class="content">
+        @yield('content')
+    </main>
+</div>
 
 <!-- Footer -->
 <footer>
