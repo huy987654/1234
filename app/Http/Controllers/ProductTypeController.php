@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ProductType;
 use App\Http\Requests\StoreProductTypeRequest;
 use App\Http\Requests\UpdateProductTypeRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 class ProductTypeController extends Controller
 {
@@ -13,14 +14,17 @@ class ProductTypeController extends Controller
      */
     public function index()
     {
-        //
-        //Tao đối tượng của model
-        $objProductType = new ProductType();
-        //Gọi đến function để lấy dữ liệu trong model
-        $productTypes = $objProductType->index();
-        //Gui len view
+        $keyword = trim(request('q', ''));
+        $productTypes = DB::table('product_types')
+            ->when($keyword !== '', function ($query) use ($keyword) {
+                $query->where('product_type_name', 'like', '%' . $keyword . '%');
+            })
+            ->orderBy('id', 'desc')
+            ->get();
+
         return view('productTypes.index', [
-            'productTypes' => $productTypes
+            'productTypes' => $productTypes,
+            'keyword' => $keyword
         ]);
     }
 

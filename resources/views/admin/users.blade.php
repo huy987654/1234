@@ -1,20 +1,29 @@
 @extends('layouts.admin')
 
-@section('title', 'Users Management')
+@section('title', 'Quan ly nguoi dung')
+@section('subtitle', 'Danh sach tai khoan quan tri mau')
 
 @section('content')
-    <h2>Danh sách người dùng</h2>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Tên</th>
-            <th>Email</th>
-        </tr>
-        <!-- Ví dụ dữ liệu -->
-        <tr>
-            <td>1</td>
-            <td>Nguyễn Văn A</td>
-            <td>a@example.com</td>
-        </tr>
-    </table>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Ten</th>
+                        <th>Email</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Nguyen Van A</td>
+                        <td>a@example.com</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 @endsection

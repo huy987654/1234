@@ -1,29 +1,35 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Document</title>
-</head>
-<body>
-<h3>Sửa Customer</h3>
-<form action="{{ route('customers.update', $customer->id) }}" method="POST">
-    @csrf
-    @method('PUT')
+@extends('layouts.admin')
 
-    <label>Tên:</label>
-    <input type="text" name="name" value="{{ $customer->name }}"><br><br>
+@section('title', 'Sua khach hang')
+@section('subtitle', 'Cap nhat thong tin khach hang')
 
-    <label>Email:</label>
-    <input type="email" name="email" value="{{ $customer->email }}"><br><br>
-
-    <label>Phone:</label>
-    <input type="text" name="phone" value="{{ $customer->phone }}"><br><br>
-
-    <label>Password:</label>
-    <input type="text" name="password" value="{{ $customer->password }}"><br><br>
-
-    <button type="submit">Update</button>
-</form>
-</body>
-</html>
+@section('content')
+    <div class="card">
+        <div class="card-body">
+            <form action="{{ route('customers.update', $customer->id) }}" method="POST" class="form-grid">
+                @csrf
+                @method('PUT')
+                <div>
+                    <label class="form-label" for="name">Ten khach hang</label>
+                    <input id="name" type="text" name="name" value="{{ $customer->customer_name ?? $customer->name }}" required>
+                </div>
+                <div>
+                    <label class="form-label" for="email">Email</label>
+                    <input id="email" type="email" name="email" value="{{ $customer->email }}" required>
+                </div>
+                <div>
+                    <label class="form-label" for="phone">Dien thoai</label>
+                    <input id="phone" type="text" name="phone" value="{{ $customer->phone }}" required>
+                </div>
+                <div>
+                    <label class="form-label" for="password">Mat khau</label>
+                    <input id="password" type="password" name="password" value="{{ $customer->password }}">
+                </div>
+                <div class="actions">
+                    <button type="submit" class="btn btn-primary">Cap nhat</button>
+                    <a href="{{ route('customers.index') }}" class="btn">Quay lai</a>
+                </div>
+            </form>
+        </div>
+    </div>
+@endsection

@@ -44,7 +44,15 @@ return [
             'driver' => 'session',
            'provider' => 'staffs',
        ],
+        'customer' => [
+            'driver' => 'session',
+            'provider' => 'customers',
+        ],
     ],
+
+
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -73,6 +81,10 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\Staff::class),
    ],
+        'customers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Customer::class,
+        ],
     ],
 
     /*

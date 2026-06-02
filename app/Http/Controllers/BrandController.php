@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use App\Http\Requests\StoreBrandRequest;
 use App\Http\Requests\UpdateBrandRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 class BrandController extends Controller
 {
@@ -13,14 +14,17 @@ class BrandController extends Controller
      */
     public function index()
     {
+             $keyword = trim(request('q', ''));
+             $brands = DB::table('brands')
+                 ->when($keyword !== '', function ($query) use ($keyword) {
+                     $query->where('brand_name', 'like', '%' . $keyword . '%');
+                 })
+                 ->orderBy('id', 'desc')
+                 ->get();
 
-             //Tạo đối tượng của model
-             $objBrand = new Brand();
-             //Gọi đến function để lấy dữ liệu trong model
-             $brands = $objBrand->index();
-             //Gui len view
              return view('brands.index', [
-                 'brands' => $brands
+                 'brands' => $brands,
+                 'keyword' => $keyword
              ]);
      }
 
@@ -44,7 +48,7 @@ class BrandController extends Controller
         //Gọi function lưu dữ liệu trong model
         $obj->createBrand();
         //Quay về danh sách
-        return Redirect::route('brands.index');
+        return Redirect::route('brands.index')->with('success', 'Brand added successfully!');
     }
 
     /**
@@ -76,7 +80,7 @@ class BrandController extends Controller
         //Gọi function để update dữ liệu trong model
         $brand->updateBrand();
         //Quay về danh sách
-        return Redirect::route('brands.index');
+        return Redirect::route('brands.index')->with('success', 'Brand updated successfully!');
     }
 
     /**
@@ -87,6 +91,6 @@ class BrandController extends Controller
         //Gọi function xóa bản ghi trong db
         $brand->deleteBrand();
         //Quay lại danh sách
-        return Redirect::route('brands.index');
+        return Redirect::route('brands.index')->with('success', 'Brand deleted successfully!');
     }
 }

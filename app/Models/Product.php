@@ -27,6 +27,7 @@ class Product extends Model
         //query builder lưu dữ liệu
         DB::table("products")->insert([
             'product_name' => $this->name,
+            'image' => $this->image ?? null,
             'price' => $this->price,
             'stock_quantity' => $this->stock_quantity,
             'brand_id' => $this->brand_id,
@@ -42,6 +43,7 @@ class Product extends Model
             ->where('id', $this->id)
             ->update([
                 'product_name' => $this->product_name,
+                'image' => $this->image ?? DB::table('products')->where('id', $this->id)->value('image'),
                 'price' => $this->price,
                 'stock_quantity' => $this->stock_quantity,
                 'brand_id' => $this->brand_id,

@@ -1,39 +1,51 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Document</title>
-</head>
-<body>
-<h3>Product Type List</h3>
-<a href="{{ route('productTypes.create') }}">Add a product type</a>
-<table border="1px" cellpadding="0" cellspacing="0" width="100%">
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
+@extends('layouts.admin')
 
-    </tr>
-    @foreach($productTypes as $productType)
-        <tr>
-            <td>
-                {{ $productType->id }}
-            </td>
-            <td>
-                {{ $productType->product_type_name }}
-            </td>
-            <td>
-                <a href="{{ route('productTypes.edit', $productType->id) }}">Edit</a>
-            </td>
-            <td>
-                <form method="post" action="{{ route('productTypes.destroy', $productType->id) }}">
-                    @csrf
-                    @method('DELETE')
-                    <button>Delete</button>
+@section('title', 'Quan ly loai san pham')
+@section('subtitle', 'Phan nhom cac dong dien thoai va phu kien')
+
+@section('content')
+    <div class="card">
+        <div class="card-body">
+            <div class="toolbar">
+                <form method="GET" action="{{ route('productTypes.index') }}" style="flex: 1;">
+                    <input type="text" name="q" value="{{ $keyword ?? request('q') }}" class="search-input" placeholder="Tim kiem loai san pham...">
                 </form>
-            </td>
-        </tr>
-    @endforeach
-</table>
-</body>
-</html>
+                <a href="{{ route('productTypes.create') }}" class="btn btn-primary">+ Them loai</a>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Ten loai</th>
+                        <th>Hanh dong</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @forelse($productTypes as $productType)
+                        <tr>
+                            <td>{{ $productType->id }}</td>
+                            <td>{{ $productType->product_type_name }}</td>
+                            <td>
+                                <div class="actions">
+                                    <a href="{{ route('productTypes.edit', $productType->id) }}" class="btn btn-sm btn-info">Sua</a>
+                                    <form method="post" action="{{ route('productTypes.destroy', $productType->id) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Xoa loai san pham nay?')">Xoa</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="3" class="empty-cell">Chua co loai san pham nao.</td>
+                        </tr>
+                    @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+@endsection

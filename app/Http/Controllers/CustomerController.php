@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 class CustomerController extends Controller
 {
@@ -13,13 +14,22 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //Tạo đối tượng của model
-        $objCustomer = new Customer();
-        //Gọi đến function để lấy dữ liệu trong model
-        $customers = $objCustomer->index();
-        //Gui len view
+        $keyword = trim(request('q', ''));
+        $customers = DB::table('customers')
+            ->when($keyword !== '', function ($query) use ($keyword) {
+                $query->where(function ($subQuery) use ($keyword) {
+                    $subQuery
+                        ->where('customer_name', 'like', '%' . $keyword . '%')
+                        ->orWhere('email', 'like', '%' . $keyword . '%')
+                        ->orWhere('phone', 'like', '%' . $keyword . '%');
+                });
+            })
+            ->orderBy('id', 'desc')
+            ->get();
+
         return view('customers.index', [
-            'customers' => $customers
+            'customers' => $customers,
+            'keyword' => $keyword
         ]);
     }
 

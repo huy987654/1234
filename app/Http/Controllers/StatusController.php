@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Status;
 use App\Http\Requests\StoreStatusRequest;
 use App\Http\Requests\UpdateStatusRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 class StatusController extends Controller
 {
@@ -13,14 +14,17 @@ class StatusController extends Controller
      */
     public function index()
     {
-        //
-        //Tao đối tượng của model
-        $objStatus = new Status();
-        //Gọi đến function để lấy dữ liệu trong model
-        $statuses = $objStatus->index();
-        //Gui len view
+        $keyword = trim(request('q', ''));
+        $statuses = DB::table('statuses')
+            ->when($keyword !== '', function ($query) use ($keyword) {
+                $query->where('status_name', 'like', '%' . $keyword . '%');
+            })
+            ->orderBy('id', 'desc')
+            ->get();
+
         return view('statuses.index', [
-            'statuses' => $statuses
+            'statuses' => $statuses,
+            'keyword' => $keyword
         ]);
     }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Configuration;
 use App\Http\Requests\StoreConfigurationRequest;
 use App\Http\Requests\UpdateConfigurationRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 class ConfigurationController extends Controller
 {
@@ -13,14 +14,26 @@ class ConfigurationController extends Controller
      */
     public function index()
     {
-        //Tao đối tượng của model
-$objConfiguration = new Configuration();
-//Gọi đến function để lấy dữ liệu trong model
-$configurations = $objConfiguration->index();
-//Gui len view
-return view('configurations.index', [
-    'configurations' => $configurations
-]);
+        $keyword = trim(request('q', ''));
+        $configurations = DB::table('configurations')
+            ->when($keyword !== '', function ($query) use ($keyword) {
+                $query->where(function ($subQuery) use ($keyword) {
+                    $subQuery
+                        ->where('cpu', 'like', '%' . $keyword . '%')
+                        ->orWhere('ram', 'like', '%' . $keyword . '%')
+                        ->orWhere('storage', 'like', '%' . $keyword . '%')
+                        ->orWhere('screen', 'like', '%' . $keyword . '%')
+                        ->orWhere('os', 'like', '%' . $keyword . '%')
+                        ->orWhere('camera', 'like', '%' . $keyword . '%');
+                });
+            })
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return view('configurations.index', [
+            'configurations' => $configurations,
+            'keyword' => $keyword
+        ]);
     }
 
     /**

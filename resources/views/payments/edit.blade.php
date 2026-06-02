@@ -1,17 +1,23 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Document</title>
-</head>
-<body>
-<h3>Update a payment</h3>
-<form method="post" action="{{route('payments.update', $payment->id)}}">
-    @csrf
-    @method('PUT')
-    Name: <input type="text" name="name" value="{{ $payment->name }}"><br>
-    <button>Update</button>
-</form>
-</body>
-</html>
+@extends('layouts.admin')
+
+@section('title', 'Sua thanh toan')
+@section('subtitle', 'Cap nhat phuong thuc thanh toan')
+
+@section('content')
+    <div class="card">
+        <div class="card-body">
+            <form method="post" action="{{ route('payments.update', $payment->id) }}" class="form-grid">
+                @csrf
+                @method('PUT')
+                <div>
+                    <label class="form-label" for="name">Phuong thuc</label>
+                    <input id="name" type="text" name="name" value="{{ $payment->method ?? $payment->name }}" required>
+                </div>
+                <div class="actions">
+                    <button type="submit" class="btn btn-primary">Cap nhat</button>
+                    <a href="{{ route('payments.index') }}" class="btn">Quay lai</a>
+                </div>
+            </form>
+        </div>
+    </div>
+@endsection

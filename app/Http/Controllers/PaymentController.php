@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Payment;
 use App\Http\Requests\StorePaymentRequest;
 use App\Http\Requests\UpdatePaymentRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 class PaymentController extends Controller
 {
@@ -13,14 +14,17 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        //
-            //Tao đối tượng của model
-            $objPayment = new Payment();
-            //Gọi đến function để lấy dữ liệu trong model
-            $payments = $objPayment->index();
-            //Gui len view
+            $keyword = trim(request('q', ''));
+            $payments = DB::table('payments')
+                ->when($keyword !== '', function ($query) use ($keyword) {
+                    $query->where('method', 'like', '%' . $keyword . '%');
+                })
+                ->orderBy('id', 'desc')
+                ->get();
+
             return view('payments.index', [
-                'payments' => $payments
+                'payments' => $payments,
+                'keyword' => $keyword
             ]);
     }
 

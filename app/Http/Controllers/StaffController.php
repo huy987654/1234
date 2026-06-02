@@ -34,10 +34,20 @@ class StaffController extends Controller
    {
        if(Auth::guard('staff')->attempt($request->only('email', 'password'))){
            $request->session()->regenerate();
-            return Redirect::route('brands.index');
+            return Redirect::route('admin.dashboard');
         } else {
-            return Redirect::back();
+            return Redirect::back()->with('error', 'Email hoac mat khau khong dung.');
         }
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::guard('staff')->logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return Redirect::route('staffs.login');
     }
 
     /**
