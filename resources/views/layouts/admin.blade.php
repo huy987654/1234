@@ -93,9 +93,7 @@
             color: #fff;
             font-size: 14px;
         }
-        .logout-form {
-            margin: 0;
-        }
+        .logout-form { margin: 0; }
         .logout-btn {
             width: 100%;
             min-height: 42px;
@@ -108,15 +106,8 @@
             text-align: left;
             cursor: pointer;
         }
-        .logout-btn:hover {
-            background: rgba(220,38,38,.28);
-            color: #fff;
-        }
-        .admin-main {
-            min-width: 0;
-            display: flex;
-            flex-direction: column;
-        }
+        .logout-btn:hover { background: rgba(220,38,38,.28); color: #fff; }
+        .admin-main { min-width: 0; display: flex; flex-direction: column; }
         .topbar {
             min-height: 72px;
             padding: 16px 28px;
@@ -130,16 +121,8 @@
             top: 0;
             z-index: 5;
         }
-        .page-title {
-            margin: 0;
-            font-size: 24px;
-            line-height: 1.25;
-        }
-        .page-subtitle {
-            color: var(--muted);
-            font-size: 14px;
-            margin-top: 4px;
-        }
+        .page-title { margin: 0; font-size: 24px; line-height: 1.25; }
+        .page-subtitle { color: var(--muted); font-size: 14px; margin-top: 4px; }
         .topbar-user {
             display: flex;
             align-items: center;
@@ -149,8 +132,7 @@
             white-space: nowrap;
         }
         .avatar {
-            width: 38px;
-            height: 38px;
+            width: 38px; height: 38px;
             border-radius: 50%;
             background: #d8f3ee;
             color: var(--brand-dark);
@@ -159,10 +141,7 @@
             justify-content: center;
             font-weight: 800;
         }
-        .content {
-            padding: 28px;
-        }
-
+        .content { padding: 28px; }
         .card {
             background: var(--panel);
             border: 1px solid var(--line);
@@ -196,27 +175,15 @@
             outline: none;
         }
         .search-input { max-width: 330px; }
-        .form-grid {
-            display: grid;
-            gap: 16px;
-            max-width: 720px;
-        }
-        .form-label {
-            display: block;
-            font-weight: 700;
-            margin-bottom: 7px;
-        }
+        .form-grid { display: grid; gap: 16px; max-width: 720px; }
+        .form-label { display: block; font-weight: 700; margin-bottom: 7px; }
         .table-wrap {
             width: 100%;
             overflow-x: auto;
             border: 1px solid var(--line);
             border-radius: 8px;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: #fff;
-        }
+        table { width: 100%; border-collapse: collapse; background: #fff; }
         th, td {
             padding: 13px 14px;
             border-bottom: 1px solid var(--line);
@@ -233,7 +200,6 @@
         }
         tr:last-child td { border-bottom: 0; }
         tbody tr:hover { background: #f9fbff; }
-
         .btn {
             display: inline-flex;
             align-items: center;
@@ -253,11 +219,7 @@
         .btn-info { background: var(--accent); color: #fff; }
         .btn-danger { background: var(--danger); color: #fff; }
         .btn-sm { min-height: 34px; padding: 7px 10px; font-size: 13px; }
-        .actions {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .actions { display: flex; align-items: center; gap: 8px; }
         .actions form { margin: 0; }
         .badge {
             display: inline-flex;
@@ -270,13 +232,9 @@
         }
         .bg-success { background: #dcfce7; color: var(--success); }
         .bg-warning { background: #fef3c7; color: var(--warning); }
-        .bg-danger { background: #fee2e2; color: var(--danger); }
+        .bg-danger  { background: #fee2e2; color: var(--danger); }
         .text-muted { color: var(--muted); }
-        .empty-cell {
-            padding: 34px 16px;
-            text-align: center;
-            color: var(--muted);
-        }
+        .empty-cell { padding: 34px 16px; text-align: center; color: var(--muted); }
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, minmax(160px, 1fr));
@@ -290,43 +248,22 @@
             border-radius: 8px;
             box-shadow: var(--shadow);
         }
-        .stat-label {
-            color: var(--muted);
-            font-weight: 700;
-            font-size: 13px;
-        }
-        .stat-value {
-            font-size: 28px;
-            font-weight: 800;
-            margin-top: 10px;
-        }
+        .stat-label { color: var(--muted); font-weight: 700; font-size: 13px; }
+        .stat-value { font-size: 28px; font-weight: 800; margin-top: 10px; }
 
         @media (max-width: 920px) {
             .admin-shell { grid-template-columns: 1fr; }
-            .admin-sidebar {
-                position: static;
-                height: auto;
-                padding: 18px;
-            }
-            .nav-list {
-                display: grid;
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 4px;
-            }
+            .admin-sidebar { position: static; height: auto; padding: 18px; }
+            .nav-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; }
             .topbar { align-items: flex-start; }
             .content { padding: 18px; }
             .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         }
         @media (max-width: 560px) {
-            .topbar {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .nav-list,
-            .stats-grid { grid-template-columns: 1fr; }
+            .topbar { flex-direction: column; align-items: flex-start; }
+            .nav-list, .stats-grid { grid-template-columns: 1fr; }
             .toolbar { align-items: stretch; }
-            .toolbar .btn,
-            .search-input { width: 100%; max-width: none; }
+            .toolbar .btn, .search-input { width: 100%; max-width: none; }
         }
     </style>
 </head>
@@ -339,33 +276,36 @@
         </div>
 
         <nav class="nav-list">
-            <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
-                Dashboard
-            </a>
-            <a class="nav-link {{ request()->routeIs('products.*') ? 'active' : '' }}" href="{{ route('products.index') }}">
-                San pham
-            </a>
-            <a class="nav-link {{ request()->routeIs('brands.*') ? 'active' : '' }}" href="{{ route('brands.index') }}">
-                Thuong hieu
-            </a>
-            <a class="nav-link {{ request()->routeIs('productTypes.*') ? 'active' : '' }}" href="{{ route('productTypes.index') }}">
-                Loai san pham
-            </a>
-            <a class="nav-link {{ request()->routeIs('customers.*') ? 'active' : '' }}" href="{{ route('customers.index') }}">
-                Khach hang
-            </a>
-            <a class="nav-link {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}" href="{{ route('admin.orders.index') }}">
-                Don hang
-            </a>
-            <a class="nav-link {{ request()->routeIs('payments.*') ? 'active' : '' }}" href="{{ route('payments.index') }}">
-                Thanh toan
-            </a>
-            <a class="nav-link {{ request()->routeIs('statuses.*') ? 'active' : '' }}" href="{{ route('statuses.index') }}">
-                Trang thai
-            </a>
-            <a class="nav-link {{ request()->routeIs('configurations.*') ? 'active' : '' }}" href="{{ route('configurations.index') }}">
-                Cau hinh
-            </a>
+            <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"
+               href="{{ route('admin.dashboard') }}">Dashboard</a>
+
+            <a class="nav-link {{ request()->routeIs('products.*') ? 'active' : '' }}"
+               href="{{ route('products.index') }}">San pham</a>
+
+            <a class="nav-link {{ request()->routeIs('brands.*') ? 'active' : '' }}"
+               href="{{ route('brands.index') }}">Thuong hieu</a>
+
+            <a class="nav-link {{ request()->routeIs('productTypes.*') ? 'active' : '' }}"
+               href="{{ route('productTypes.index') }}">Loai san pham</a>
+
+            <a class="nav-link {{ request()->routeIs('customers.*') ? 'active' : '' }}"
+               href="{{ route('customers.index') }}">Khach hang</a>
+
+            <a class="nav-link {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}"
+               href="{{ route('admin.orders.index') }}">Don hang</a>
+
+            {{-- Bao hanh --}}
+            <a class="nav-link {{ request()->routeIs('warranties.*') ? 'active' : '' }}"
+               href="{{ route('warranties.index') }}">Bao hanh</a>
+
+            <a class="nav-link {{ request()->routeIs('payments.*') ? 'active' : '' }}"
+               href="{{ route('payments.index') }}">Thanh toan</a>
+
+            <a class="nav-link {{ request()->routeIs('statuses.*') ? 'active' : '' }}"
+               href="{{ route('statuses.index') }}">Trang thai</a>
+
+            <a class="nav-link {{ request()->routeIs('configurations.*') ? 'active' : '' }}"
+               href="{{ route('configurations.index') }}">Cau hinh</a>
         </nav>
 
         <div class="sidebar-footer">

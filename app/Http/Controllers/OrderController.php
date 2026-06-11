@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Warranty;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use Illuminate\Http\Request;
@@ -43,7 +44,7 @@ class OrderController extends Controller
             ->get();
 
         return view('admin.orders.index', [
-            'orders' => $orders,
+            'orders'  => $orders,
             'keyword' => $keyword,
         ]);
     }
@@ -68,10 +69,17 @@ class OrderController extends Controller
         $details = $this->orderDetails($order->id);
         $statuses = DB::table('statuses')->orderBy('id')->get();
 
+        // Lấy thông tin bảo hành của từng order_detail
+        $warranties = DB::table('warranties')
+            ->whereIn('order_detail_id', $details->pluck('id')->toArray())
+            ->get()
+            ->keyBy('order_detail_id');
+
         return view('admin.orders.show', [
-            'order' => $orderInfo,
-            'details' => $details,
-            'statuses' => $statuses,
+            'order'      => $orderInfo,
+            'details'    => $details,
+            'statuses'   => $statuses,
+            'warranties' => $warranties,
         ]);
     }
 
@@ -81,14 +89,21 @@ class OrderController extends Controller
             'status_id' => 'required|exists:statuses,id',
         ]);
 
+        $newStatusName = DB::table('statuses')
+            ->where('id', $request->status_id)
+            ->value('status_name');
+
         DB::table('orders')
             ->where('id', $order->id)
-            ->update([
-                'status_id' => $request->status_id,
-            ]);
+            ->update(['status_id' => $request->status_id]);
+
+        // Tự động tạo bảo hành khi đơn hàng Hoàn thành
+        if ($newStatusName === 'Hoan thanh') {
+            Warranty::createForOrder($order->id);
+        }
 
         return Redirect::route('admin.orders.show', $order->id)
-            ->with('success', 'Cap nhat trang thai don hang thanh cong.');
+            ->with('success', 'Cập nhật trạng thái đơn hàng thành công.');
     }
 
     public function checkout()
@@ -106,7 +121,7 @@ class OrderController extends Controller
         }
 
         return view('orders.checkout', [
-            'carts' => $carts,
+            'carts'    => $carts,
             'customer' => $customer,
             'payments' => DB::table('payments')->orderBy('id')->get()
         ]);
@@ -121,10 +136,10 @@ class OrderController extends Controller
         }
 
         $request->validate([
-            'receiver_name' => 'required|string|max:255',
+            'receiver_name'  => 'required|string|max:255',
             'receiver_phone' => 'required|string|max:20',
-            'order_address' => 'required|string|max:500',
-            'payment_id' => 'required|exists:payments,id',
+            'order_address'  => 'required|string|max:500',
+            'payment_id'     => 'required|exists:payments,id',
         ]);
 
         $carts = Session::get('carts', []);
@@ -141,7 +156,7 @@ class OrderController extends Controller
             }
         }
 
-        $staffId = DB::table('staffs')->value('id');
+        $staffId  = DB::table('staffs')->value('id');
         $statusId = DB::table('statuses')->where('status_name', 'Cho xac nhan')->value('id')
             ?? DB::table('statuses')->value('id');
 
@@ -156,22 +171,22 @@ class OrderController extends Controller
 
         $orderId = DB::transaction(function () use ($request, $customer, $staffId, $statusId, $total, $carts) {
             $orderId = DB::table('orders')->insertGetId([
-                'order_date' => now(),
-                'total_amount' => $total,
+                'order_date'     => now(),
+                'total_amount'   => $total,
                 'receiver_phone' => $request->receiver_phone,
-                'receiver_name' => $request->receiver_name,
-                'order_address' => $request->order_address,
-                'payment_id' => $request->payment_id,
-                'customer_id' => $customer->id,
-                'staff_id' => $staffId,
-                'status_id' => $statusId,
+                'receiver_name'  => $request->receiver_name,
+                'order_address'  => $request->order_address,
+                'payment_id'     => $request->payment_id,
+                'customer_id'    => $customer->id,
+                'staff_id'       => $staffId,
+                'status_id'      => $statusId,
             ]);
 
             foreach ($carts as $variantId => $item) {
                 DB::table('order_details')->insert([
-                    'unit_price' => (float) $item['price'],
-                    'quantity' => (int) $item['quantity'],
-                    'order_id' => $orderId,
+                    'unit_price'         => (float) $item['price'],
+                    'quantity'           => (int) $item['quantity'],
+                    'order_id'           => $orderId,
                     'product_variant_id' => $variantId,
                 ]);
 
@@ -233,7 +248,7 @@ class OrderController extends Controller
         $details = $this->orderDetails($order->id);
 
         return view('orders.show', [
-            'order' => $orderInfo,
+            'order'   => $orderInfo,
             'details' => $details
         ]);
     }
@@ -250,7 +265,7 @@ class OrderController extends Controller
             abort(403);
         }
 
-        $currentStatus = DB::table('statuses')->where('id', $order->status_id)->value('status_name');
+        $currentStatus   = DB::table('statuses')->where('id', $order->status_id)->value('status_name');
         $canCancelStatuses = ['Cho xac nhan', 'Dang xu ly'];
 
         if (!in_array($currentStatus, $canCancelStatuses, true)) {
@@ -280,9 +295,7 @@ class OrderController extends Controller
 
             DB::table('orders')
                 ->where('id', $order->id)
-                ->update([
-                    'status_id' => $cancelStatusId,
-                ]);
+                ->update(['status_id' => $cancelStatusId]);
         });
 
         return Redirect::route('orders.show', $order->id)->with('success', 'Huy don hang thanh cong.');

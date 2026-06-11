@@ -3,64 +3,61 @@
 namespace App\Http\Controllers;
 
 use App\Models\Warranty;
-use App\Http\Requests\StoreWarrantyRequest;
-use App\Http\Requests\UpdateWarrantyRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class WarrantyController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Danh sách bảo hành
      */
     public function index()
     {
-        //
+        $keyword = trim(request('q', ''));
+        $warranties = Warranty::getAllWithDetails($keyword);
+
+        return view('warranties.index', [
+            'warranties' => $warranties,
+            'keyword'    => $keyword,
+        ]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Chi tiết bảo hành
      */
-    public function create()
+    public function show(string $warrantyNo, int $orderDetailId)
     {
-        //
+        $warranty = Warranty::getDetail($warrantyNo, $orderDetailId);
+
+        if (!$warranty) {
+            abort(404);
+        }
+
+        return view('warranties.show', [
+            'warranty' => $warranty,
+        ]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Cập nhật trạng thái bảo hành
      */
-    public function store(StoreWarrantyRequest $request)
+    public function update(Request $request, string $warrantyNo, int $orderDetailId)
     {
-        //
-    }
+        $request->validate([
+            'warranty_status' => 'required|in:Còn bảo hành,Hết bảo hành,Đang xử lý',
+            'description'     => 'nullable|string|max:500',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Warranty $warranty)
-    {
-        //
-    }
+        DB::table('warranties')
+            ->where('warranty_no', $warrantyNo)
+            ->where('order_detail_id', $orderDetailId)
+            ->update([
+                'warranty_status' => $request->warranty_status,
+                'description'     => $request->description,
+            ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Warranty $warranty)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateWarrantyRequest $request, Warranty $warranty)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Warranty $warranty)
-    {
-        //
+        return Redirect::route('warranties.show', [$warrantyNo, $orderDetailId])
+            ->with('success', 'Cập nhật bảo hành thành công.');
     }
 }

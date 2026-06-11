@@ -14,6 +14,7 @@ use App\Http\Controllers\ProductTypeController;
 use App\Http\Controllers\ProductVariantController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\StatusController;
+use App\Http\Controllers\WarrantyController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('shop.home');
@@ -56,6 +57,16 @@ Route::middleware('authStaff')->group(function () {
         Route::get('/orders/{order}', [OrderController::class, 'adminShow'])->name('admin.orders.show');
         Route::put('/orders/{order}/status', [OrderController::class, 'adminUpdateStatus'])->name('admin.orders.updateStatus');
     });
+
+    // ===== Bao hanh (Warranty) =====
+    Route::controller(WarrantyController::class)
+        ->name('warranties.')
+        ->prefix('/warranties')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/{warrantyNo}/{orderDetailId}', 'show')->name('show');
+            Route::put('/{warrantyNo}/{orderDetailId}', 'update')->name('update');
+        });
 
     Route::controller(BrandController::class)
         ->name('brands.')
