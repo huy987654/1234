@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-
+        Schema::dropIfExists('warranties');  // neu ton tai bang trc do thi xoa di de tao lai bang moi
 
         Schema::create('warranties', function (Blueprint $table) {
             $table->string('warranty_no');
